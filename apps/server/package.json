@@ -1,0 +1,35 @@
+{
+  "name": "server",
+  "private": true,
+  "version": "1.0.0",
+  "description": "",
+  "main": "index",
+  "type": "module",
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "start": "node dist/index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "packageManager": "pnpm@10.28.1",
+  "files": [
+    "tsconfig.json"
+  ],
+  "dependencies": {
+    "@fastify/cors": "^11.2.0",
+    "@fastify/sse": "^0.4.0",
+    "chance": "^1.1.13",
+    "fastify": "^5.7.1",
+    "fastify-plugin": "^5.1.0"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.39.2",
+    "@types/chance": "^1.1.7",
+    "@types/node": "^24.10.9",
+    "eslint": "^9.39.2",
+    "prettier": "^3.8.1",
+    "typescript": "~5.9.3",
+    "typescript-eslint": "^8.53.1"
+  }
+}
