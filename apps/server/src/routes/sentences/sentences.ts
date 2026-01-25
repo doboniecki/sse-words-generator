@@ -20,9 +20,9 @@ function handler(reply: FastifyReply) {
     counter = counter + 1;
 
     reply.raw.write(`event: message\n`);
-    reply.raw.write(`data: ${chanceInstance.sentence()}\n`);
+    reply.raw.write(`data: ${chanceInstance.word() + ' '}\n`);
     reply.raw.write('\n');
-  }, 200);
+  }, 100);
 
   reply.raw.on('close', () => {
     clearInterval(interval);
