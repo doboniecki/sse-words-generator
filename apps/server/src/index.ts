@@ -1,6 +1,6 @@
 import fastify from 'fastify';
 import { corsPlugin } from './plugins/cors.js';
-import { generateSentences } from './routes/sentences/sentences.js';
+import { generateSentences } from './routes/words/words.js';
 
 const app = fastify({
   logger: true
