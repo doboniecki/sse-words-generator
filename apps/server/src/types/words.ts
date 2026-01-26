@@ -1,4 +1,11 @@
 export type WordRequest = {
-  wordCount: number;
-  milliseconds: number;
+  wordsCount: string;
+  milliseconds: string;
+};
+
+export type WordEvent = {
+  eventType: 'data';
+  data: {
+    text: string;
+  };
 };

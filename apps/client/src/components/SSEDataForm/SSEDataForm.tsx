@@ -17,7 +17,7 @@ export default function SSEDataForm({
           type='number'
           name='wordsCount'
           placeholder='The amount of words (number)'
-          className={'w-3/4'}
+          className={'w-3/4 p-2 border-2 rounded-lg'}
         />
       </div>
 
@@ -27,7 +27,7 @@ export default function SSEDataForm({
           type='number'
           name='milliseconds'
           placeholder='Stream frequency value (ms)'
-          className={'w-3/4'}
+          className={'w-3/4 p-2 border-2 rounded-lg'}
         />
       </div>
 

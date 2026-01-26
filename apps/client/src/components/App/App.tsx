@@ -42,7 +42,15 @@ function App() {
 
   return (
     <>
-      <h1 className='mb-10 font-bold italic'>Server-sent events</h1>
+      <h1 className='mb-10 font-bold italic'>
+        Words generator via{' '}
+        <a
+          target='_blank'
+          href='https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events'
+        >
+          SSE
+        </a>
+      </h1>
 
       <SSEDataForm
         handleSubmit={handleSubmit}
@@ -50,7 +58,7 @@ function App() {
         onClear={onClear}
       />
 
-      <div className='p-5 max-h-50 text-green-400 wrap-break-word m-auto italic font-serif first-letter:capitalize max-w-100'>
+      <div className='p-5 text-green-400 wrap-break-word m-auto italic font-serif first-letter:capitalize max-w-100 max-h-70 overflow-scroll'>
         {output || 'Click "Send" to generate words by SSE'}
         {error && <div className='text-red-500'>{error}</div>}
       </div>

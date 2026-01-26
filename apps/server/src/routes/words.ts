@@ -1,6 +1,7 @@
 import { FastifyInstance, FastifyReply, FastifyRequest } from 'fastify';
 import chance from 'chance';
 import { clearInterval } from 'node:timers';
+import { WordEvent, WordRequest } from '../types/words.js';
 
 function handler(request: FastifyRequest, reply: FastifyReply) {
   const headers = new Headers({
@@ -10,31 +11,41 @@ function handler(request: FastifyRequest, reply: FastifyReply) {
     'Access-Control-Allow-Origin': '*'
   });
 
+  const requestBody = request.body as WordRequest;
+
   reply.raw.setHeaders(headers);
   reply.raw.flushHeaders();
 
-  let counter = 0;
+  let counter = parseInt(requestBody.wordsCount);
+
+  const intervalFrequency = parseInt(requestBody.milliseconds);
 
   const chanceInstance = chance();
 
-  const interval = setInterval(() => {
-    counter = counter + 1;
+  const sendEvent = () => {
+    const eventMessage: WordEvent = {
+      eventType: 'data',
+      data: {
+        text: chanceInstance.word()
+      }
+    };
 
-    if (counter > 20) {
+    reply.raw.write(JSON.stringify(eventMessage));
+
+    counter--;
+  };
+
+  sendEvent();
+
+  const interval = setInterval(() => {
+    if (counter === 0) {
       clearInterval(interval);
       reply.raw.end();
       return;
     }
 
-    reply.raw.write(
-      JSON.stringify({
-        eventType: 'data',
-        data: {
-          text: chanceInstance.word()
-        }
-      })
-    );
-  }, 100);
+    sendEvent();
+  }, intervalFrequency);
 
   reply.raw.on('close', () => {
     clearInterval(interval);
