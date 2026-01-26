@@ -1,6 +1,7 @@
 import { type FormEventHandler, useState } from 'react';
 import './App.css';
-import { useReadableStream } from './hooks/useReadableStream.ts';
+import { useReadableStream } from '../../hooks/useReadableStream.ts';
+import SSEDataForm from '../SSEDataForm/SSEDataForm.tsx';
 
 function App() {
   const [output, setOutput] = useState('');
@@ -14,8 +15,10 @@ function App() {
   ) => {
     event.preventDefault();
 
+    const data = new FormData(event.currentTarget);
+
     try {
-      await processData((newValue) => {
+      await processData(data, (newValue) => {
         setOutput((output) => `${output}${newValue.data.text} `);
       });
     } catch (error) {
@@ -40,20 +43,14 @@ function App() {
   return (
     <>
       <h1 className='mb-10 font-bold italic'>Server-sent events</h1>
-      <form
-        noValidate
-        onSubmit={handleSubmit}
-        className='flex gap-3 justify-center m-3'
-      >
-        <button type='submit'>Send</button>
-        <button type='button' onClick={stopConnection}>
-          Stop
-        </button>
-        <button type='button' onClick={onClear}>
-          Clear
-        </button>
-      </form>
-      <div className='p-5 max-h-50 text-green-400 wrap-break-word text-center italic font-serif first-letter:capitalize'>
+
+      <SSEDataForm
+        handleSubmit={handleSubmit}
+        stopConnection={stopConnection}
+        onClear={onClear}
+      />
+
+      <div className='p-5 max-h-50 text-green-400 wrap-break-word m-auto italic font-serif first-letter:capitalize max-w-100'>
         {output || 'Click "Send" to generate words by SSE'}
         {error && <div className='text-red-500'>{error}</div>}
       </div>

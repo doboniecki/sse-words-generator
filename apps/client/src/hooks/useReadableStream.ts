@@ -5,6 +5,7 @@ export const useReadableStream = () => {
   const abortControllerRef = useRef<AbortController>(null);
 
   const processData = async (
+    data: FormData,
     onNewValue: (value: {
       eventType: string;
       data: { text: string };
@@ -14,10 +15,7 @@ export const useReadableStream = () => {
 
     abortControllerRef.current = abortController;
 
-    const response = await postQuery(
-      'POST request',
-      abortController.signal
-    );
+    const response = await postQuery(data, abortController.signal);
 
     const stream = response.data as ReadableStream | null;
 

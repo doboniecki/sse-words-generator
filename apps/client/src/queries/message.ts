@@ -1,15 +1,9 @@
-import axiosInstance from '../app/axios.ts';
+import axiosInstance from '../utils/axios.ts';
 
-export function postQuery(text: string, signal: AbortSignal) {
-  return axiosInstance.post(
-    '/words',
-    {
-      text
-    },
-    {
-      responseType: 'stream',
-      adapter: 'fetch',
-      signal
-    }
-  );
+export function postQuery(data: FormData, signal: AbortSignal) {
+  return axiosInstance.post('/words', Object.fromEntries(data.entries()), {
+    responseType: 'stream',
+    adapter: 'fetch',
+    signal
+  });
 }
