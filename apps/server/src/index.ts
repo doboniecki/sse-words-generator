@@ -1,13 +1,5 @@
-import fastify from 'fastify';
-import { corsPlugin } from './plugins/cors.js';
-import { generateSentences } from './routes/words.js';
+import app from './app.js';
 
-const app = fastify({
-  logger: true
-});
+const server = await app();
 
-await corsPlugin(app);
-
-generateSentences(app);
-
-await app.listen({ port: 3000 });
+await server.listen({ port: 3000 });

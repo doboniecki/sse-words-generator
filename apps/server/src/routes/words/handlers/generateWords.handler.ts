@@ -1,9 +1,11 @@
-import { FastifyInstance, FastifyReply, FastifyRequest } from 'fastify';
-import chance from 'chance';
-import { clearInterval } from 'node:timers';
-import { WordEvent, WordRequest } from '../types/words.js';
+import { FastifyReply, FastifyRequest } from 'fastify';
+import { WordEvent, WordRequest } from '../types/index.js';
+import { wordsGenerator } from '../utils/wordsGenerator.js';
 
-function handler(request: FastifyRequest, reply: FastifyReply) {
+export function wordsGeneratorHandler(
+  request: FastifyRequest,
+  reply: FastifyReply
+) {
   const headers = new Headers({
     'Content-Type': 'text/event-stream',
     Connection: 'keep-alive',
@@ -14,23 +16,30 @@ function handler(request: FastifyRequest, reply: FastifyReply) {
   const requestBody = request.body as WordRequest;
 
   reply.raw.setHeaders(headers);
-  reply.raw.flushHeaders();
+
+  if (!requestBody) {
+    reply.status(400).send('Request body not found');
+    return;
+  }
 
   let counter = parseInt(requestBody.wordsCount);
 
   const intervalFrequency = parseInt(requestBody.milliseconds);
 
-  const chanceInstance = chance();
+  if (intervalFrequency <= 0 || counter <= 0) {
+    reply.status(400).send('Values should be greater than 0');
+    return;
+  }
 
   const sendEvent = () => {
     const eventMessage: WordEvent = {
       eventType: 'data',
       data: {
-        text: chanceInstance.word()
+        text: wordsGenerator()
       }
     };
 
-    reply.raw.write(JSON.stringify(eventMessage));
+    reply.status(201).raw.write(JSON.stringify(eventMessage));
 
     counter--;
   };
@@ -51,10 +60,4 @@ function handler(request: FastifyRequest, reply: FastifyReply) {
     clearInterval(interval);
     reply.raw.end();
   });
-}
-
-export function generateSentences(fastify: FastifyInstance) {
-  fastify.post('/words', async (request, reply) =>
-    handler(request, reply)
-  );
 }
