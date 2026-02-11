@@ -1,11 +1,14 @@
 import fastify from 'fastify';
-import { corsPlugin } from './plugins/cors.js';
-import { WordsRoutes } from './routes/words/words.route.js';
+import { corsPlugin } from '../plugins/cors.js';
+import { WordsRoutes } from '../routes/words/words.route.js';
+import setupEnv from './env.js';
 
 const buildFastifyApp = async () => {
+  setupEnv();
+
   const app = fastify({
     logger: {
-      level: 'info'
+      level: process.env.LOG_LEVEL
     }
   });
 

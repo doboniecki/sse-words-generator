@@ -1,5 +1,4 @@
-import { type FormEventHandler, useState } from 'react';
-import './App.css';
+import { type SubmitEventHandler, useState } from 'react';
 import { useReadableStream } from '../../hooks/useReadableStream.ts';
 import SSEDataForm from '../SSEDataForm/SSEDataForm.tsx';
 
@@ -10,7 +9,7 @@ function App() {
 
   const { processData, abort } = useReadableStream();
 
-  const handleSubmit: FormEventHandler<HTMLFormElement> = async (
+  const handleSubmit: SubmitEventHandler<HTMLFormElement> = async (
     event
   ) => {
     event.preventDefault();
@@ -58,8 +57,10 @@ function App() {
         onClear={onClear}
       />
 
-      <div className='p-5 text-green-400 wrap-break-word m-auto italic font-serif first-letter:capitalize max-w-100 max-h-70 overflow-scroll'>
-        {output || 'Click "Send" to generate words by SSE'}
+      <div className='p-5'>
+        <span className='text-green-400 italic'>
+          {output || 'Click "Send" to generate words by SSE'}
+        </span>
         {error && <div className='text-red-500'>{error}</div>}
       </div>
     </>

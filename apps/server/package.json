@@ -14,23 +14,28 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "packageManager": "pnpm@10.28.1",
   "files": [
     "tsconfig.json"
   ],
   "dependencies": {
     "@fastify/cors": "11.2.0",
+    "@fastify/env": "5.0.3",
     "@fastify/sse": "0.4.0",
     "chance": "1.1.13",
-    "fastify": "5.7.3",
-    "fastify-plugin": "5.1.0"
+    "fastify": "5.7.4",
+    "fastify-plugin": "5.1.0",
+    "zod": "4.3.6"
   },
   "devDependencies": {
     "@types/chance": "1.1.7",
-    "@types/node": "24.10.9",
-    "oxlint": "1.43.0",
+    "@types/node": "25.2.3",
+    "oxlint": "1.46.0",
     "prettier": "3.8.1",
     "typescript": "5.9.3",
     "vitest": "4.0.18"
+  },
+  "packageManager": "pnpm@10.28.1",
+  "engines": {
+    "node": ">=24"
   }
 }
