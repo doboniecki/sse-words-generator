@@ -15,6 +15,7 @@
   "author": "",
   "license": "ISC",
   "files": [
+    "dist",
     "tsconfig.json"
   ],
   "dependencies": {
@@ -24,7 +25,8 @@
     "chance": "1.1.13",
     "fastify": "5.7.4",
     "fastify-plugin": "5.1.0",
-    "zod": "4.3.6"
+    "zod": "4.3.6",
+    "dotenv": "^17.3.1"
   },
   "devDependencies": {
     "@types/chance": "1.1.7",

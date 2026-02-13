@@ -1,5 +1,5 @@
 {
-  "name": "react-sse-client",
+  "name": "client",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -9,6 +9,12 @@
     "lint": "eslint .",
     "preview": "vite preview"
   },
+  "files": [
+    "dist",
+    "tsconfig.json",
+    "tsconfig.app.json",
+    "tsconfig.node.json"
+  ],
   "dependencies": {
     "@tailwindcss/vite": "4.1.18",
     "axios": "1.13.5",

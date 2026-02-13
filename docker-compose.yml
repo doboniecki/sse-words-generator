@@ -1,0 +1,30 @@
+version: "5.0.2"
+
+services:
+#  nginx:
+#    restart: always
+#    build:
+#      dockerfile: Dockerfile
+#      context: ./nginx
+#    ports:
+#      - "3001:80"
+#      - "3000:80"
+  backend:
+    build:
+      dockerfile: Dockerfile
+      context: .
+      target: server
+    environment:
+      - "APP_PORT=3000"
+      - "LOG_LEVEL=debug"
+    ports:
+      - "3000:3000"
+#  frontend:
+#    build:
+#      dockerfile: Dockerfile
+#      context: .
+#      target: client
+#    environment:
+#      - "VITE_SSE_API_BASE_URL=http://localhost:3000"
+#    ports:
+#      - "3001:3001"

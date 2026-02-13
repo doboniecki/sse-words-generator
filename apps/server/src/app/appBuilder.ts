@@ -3,7 +3,7 @@ import { corsPlugin } from '../plugins/cors.js';
 import { WordsRoutes } from '../routes/words/words.route.js';
 import setupEnv from './env.js';
 
-const buildFastifyApp = async () => {
+export const buildFastifyApp = async () => {
   setupEnv();
 
   const app = fastify({
@@ -12,11 +12,11 @@ const buildFastifyApp = async () => {
     }
   });
 
+  console.log(app);
+
   await corsPlugin(app);
 
   app.route(WordsRoutes.POST);
 
   return app;
 };
-
-export default buildFastifyApp;

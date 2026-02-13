@@ -1,5 +1,5 @@
 import { describe, test, expect, afterAll } from 'vitest';
-import buildFastifyApp from '../../app/appBuilder.js';
+import { buildFastifyApp } from '../../app/appBuilder.js';
 
 describe('Words Route', async () => {
   const app = await buildFastifyApp();
