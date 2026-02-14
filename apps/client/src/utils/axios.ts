@@ -4,7 +4,7 @@ const createAxiosInstance = () => {
   const baseUrl = import.meta.env.VITE_SSE_API_BASE_URL;
 
   if (!baseUrl) {
-    throw new Error('Missing base url');
+    throw new Error('Axios instance: Missing base url');
   }
 
   return axios.create({

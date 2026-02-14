@@ -20,13 +20,14 @@ RUN pnpm deploy --filter=server --prod /prod/server
 
 FROM base AS client
 
+ARG VITE_SSE_API_BASE_URL
+ENV VITE_SSE_API_BASE_URL=$VITE_SSE_API_BASE_URL
+
 COPY --from=build /prod/client /prod/client
 
 WORKDIR /prod/client
 
 EXPOSE 3001
-
-CMD ["pnpm", "preview"]
 
 FROM base AS server
 
@@ -34,6 +35,6 @@ COPY --from=build /prod/server /prod/server
 
 WORKDIR /prod/server
 
-EXPOSE 3000
+EXPOSE 4000
 
-CMD ["pnpm", "start"]
+CMD ["node", "dist/index.js"]
