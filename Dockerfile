@@ -13,15 +13,16 @@ COPY . /app
 WORKDIR /app
 
 RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --frozen-lockfile
+
+ARG VITE_SSE_API_BASE_URL
+RUN echo "VITE_SSE_API_BASE_URL=${VITE_SSE_API_BASE_URL} > ./apps/client/.env"
+
 RUN pnpm run -r build
 
 RUN pnpm deploy --filter=client --prod /prod/client
 RUN pnpm deploy --filter=server --prod /prod/server
 
 FROM base AS client
-
-ARG VITE_SSE_API_BASE_URL
-ENV VITE_SSE_API_BASE_URL=$VITE_SSE_API_BASE_URL
 
 COPY --from=build /prod/client /prod/client
 

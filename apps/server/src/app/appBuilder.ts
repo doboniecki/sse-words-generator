@@ -12,11 +12,17 @@ export const buildFastifyApp = async () => {
     }
   });
 
-  console.log(app);
+  app.register(
+    (app, _, done) => {
+      app.route(WordsRoutes.POST);
+      done();
+    },
+    {
+      prefix: '/v1'
+    }
+  );
 
   await corsPlugin(app);
-
-  app.route(WordsRoutes.POST);
 
   return app;
 };

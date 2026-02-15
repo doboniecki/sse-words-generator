@@ -1,10 +1,6 @@
-import fastify from 'fastify';
+import { buildFastifyApp } from './app/appBuilder.js';
 
-const server = fastify({
-  logger: {
-    level: process.env.LOG_LEVEL
-  }
-});
+const server = await buildFastifyApp();
 
 try {
   await server.listen({ port: process.env.APP_PORT, host: '0.0.0.0' });
