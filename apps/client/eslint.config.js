@@ -9,7 +9,7 @@ import { fileURLToPath } from 'node:url';
 import { includeIgnoreFile } from '@eslint/compat';
 
 const gitignorePath = fileURLToPath(
-  new URL('.gitignore', import.meta.url)
+  new URL('../../.gitignore', import.meta.url)
 );
 
 export default defineConfig([
